@@ -1,0 +1,30 @@
+<div class="article-list row">
+  <div class="article col-md-3" *ngFor="let article of articles">
+    <div class="card mb-3 bg-light">
+      <img
+        src="{{ article.image }}"
+        class="card-img-top"
+        alt="{{ article.nom }}"
+      />
+      <div class="card-body">
+        <h2 class="card-text">{{ article.nom }}</h2>
+        <p class="card-text">Prix : {{ article.prixHT }} €</p>
+        <div class="quantity-controls">
+          <button
+            class="btn btn-danger m-3"
+            (click)="diminuerQuantite(article)"
+          >
+            -
+          </button>
+          <p>{{ article.quantite }}</p>
+          <button class="btn btn-success" (click)="augmenterQuantite(article)">
+            +
+          </button>
+        </div>
+        <button class="btn btn-primary m-3" (click)="addToCart(article)">
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

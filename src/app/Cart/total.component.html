@@ -1,0 +1,60 @@
+<div class="container">
+  <app-product-list (articleAdd)="addArticleToCart($event)"></app-product-list>
+  <div class="col" *ngIf="cartItems.length > 0">
+    <h1 class="text-primary">Panier</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Nom</th>
+          <th>Quantité</th>
+          <th>Prix</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of cartItems; let i = index">
+          <tr *ngIf="!item.existing">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.nom }}</td>
+            <td>{{ item.quantite }}</td>
+            <td>{{ item.prixHT }}€</td>
+            <td>
+              <button (click)="deleteCart(i)" class="btn btn-danger">X</button>
+            </td>
+          </tr>
+          <tr *ngIf="item.existing">
+            <td></td>
+            <td></td>
+            <td>{{ item.quantite }}</td>
+            <td>{{ item.prixHT }}€</td>
+            <td>
+              <button (click)="deleteCart(i)" class="btn btn-danger">X</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Quantité</th>
+          <th>Prix HT</th>
+          <th>Prix TTC</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ getTotalQuantity() }}</td>
+          <td>{{ getTotalPriceHT() }}€</td>
+          <td>{{ getTotalPriceTTC() }}€</td>
+          <td>
+            <button (click)="deleteAllCart()" class="btn btn-danger">X</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
