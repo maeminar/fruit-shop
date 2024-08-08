@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Output } from '@angular/core';
-import { FormsModule, MaxLengthValidator } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { IProduit } from '../../shared/entities';
 import { ProduitService } from '../../shared/produit.service';
 
@@ -22,11 +22,14 @@ export class ProductListComponent {
   }
 
   addToCart(article: any) {
+    let res: article;
+    res = a
+    if(article.quantite > 0)
     this.articleAdd.emit(article);
   }
 
   augmenterQuantite(article: any) {
-    article.quantite += 1;
+    article.quantite = (article.quantite || 0) + 1;
   }
 
   diminuerQuantite(article: any) {

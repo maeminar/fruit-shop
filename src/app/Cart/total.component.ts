@@ -11,10 +11,24 @@ import { ProductListComponent } from '../product-list/product-list.component';
 })
 export class TotalComponent {
   cartItems: any[] = [];
+  tempList: any[] = [];
 
   addArticleToCart(article: any) {
+    for(let i = 0; i < this.cartItems.length; i++)
+    {
+      if(this.cartItems[i].id === article.id) {
+        this.cartItems[i].quantite += article.quantite;
+        return;
+      }
+    }
     this.cartItems.push(article);
   }
+
+  addToFinalCart() {
+    this.cartItems = [...this.cartItems, ...this.tempList];
+    this.tempList = [];
+  }
+
 
   deleteCart(index: number) { 
     this.cartItems.splice(index, 1);
@@ -32,15 +46,15 @@ export class TotalComponent {
     return totalQuantity;
   }
 
-  getTotalPriceHT(){
+  getTotalPriceHT(){ //Obtenir le prix total HT
     let totalPriceHT = 0;
     for(let item of this.cartItems){
-      totalPriceHT += item.prixHT;
+      totalPriceHT += item.prixHT * item.quantite;
     }
     return totalPriceHT;
   }
 
-  getTotalPriceTTC(){
+  getTotalPriceTTC(){ //Obtenir le prix total TTC
     let totalPriceTCT = this.getTotalPriceHT();
     let tva = 0.2; // Calcul du total TTC avec TVA à 20%
     const totalPriceTTC = totalPriceTCT * (1 + tva);
