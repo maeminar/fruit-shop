@@ -21,9 +21,7 @@ export class ProductListComponent {
     this.articles = this.produitService.fetchAll().slice(0, 8);
   }
 
-  addToCart(article: any) {
-    let res: article;
-    res = a
+  addToCart(article: any) { //Ajouter un article au panier quand on clique sur ajouter
     if(article.quantite > 0)
     this.articleAdd.emit(article);
   }

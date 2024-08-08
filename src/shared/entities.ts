@@ -5,4 +5,3 @@ export interface IProduit {
     prixHT: number;
     quantite: number;
   }
-  

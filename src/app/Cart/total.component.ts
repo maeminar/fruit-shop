@@ -11,34 +11,28 @@ import { ProductListComponent } from '../product-list/product-list.component';
 })
 export class TotalComponent {
   cartItems: any[] = [];
-  tempList: any[] = [];
 
   addArticleToCart(article: any) {
-    for(let i = 0; i < this.cartItems.length; i++)
-    {
-      if(this.cartItems[i].id === article.id) {
-        this.cartItems[i].quantite += article.quantite;
-        return;
+    if (article.quantite > 0) {
+      const existingItem = this.cartItems.find(item => item.id === article.id);
+      if (existingItem) {
+        existingItem.quantite += article.quantite;
+      } else {
+        const newItem = { ...article }; // toutes les propriétés de l'objet article sont copiées dans le nouvel objet newItem
+        this.cartItems.push(newItem);
       }
     }
-    this.cartItems.push(article);
   }
 
-  addToFinalCart() {
-    this.cartItems = [...this.cartItems, ...this.tempList];
-    this.tempList = [];
-  }
-
-
-  deleteCart(index: number) { 
+  deleteCart(index: number) {  // Supprimer une ligne du panier
     this.cartItems.splice(index, 1);
   }
 
-  deleteAllCart() {
+  deleteAllCart() { // Supprimre tout le panier
     this.cartItems = [];
   }
 
-  getTotalQuantity(){
+  getTotalQuantity(){ //Récupérer la quantité totale
     let totalQuantity = 0;
     for(let item of this.cartItems){
       totalQuantity += item.quantite;
